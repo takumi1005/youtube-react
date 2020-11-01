@@ -12,6 +12,7 @@ const Top = () => {
       console.log('data', res)
       setGlobalState({type: 'SET_POPULAR', payload: {popular: res.data.items}})
     })
+    // eslint-disable-next-line
   },[])
   return (
     <Layout>
@@ -22,7 +23,9 @@ const Top = () => {
               <VideoGridItem
                 id={popular.id}
                 key={popular.id}
-                src={popular.snippet.thumbnails.standard.url}
+                // src={popular.snippet.thumbnails.standard.url}
+                // starndard.urlが含まれていない動画があるため下記に変更
+                src={popular.snippet.thumbnails.default.url}
                 title={popular.snippet.title} />
             )
           })

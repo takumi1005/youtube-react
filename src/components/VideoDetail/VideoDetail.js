@@ -20,7 +20,8 @@ const VideoDetail = () => {
   }
   useEffect(() => {
     setSelectedVideo()
-  }, [])
+    // eslint-disable-next-line
+  }, [location.search])
   return globalState.selected  && globalState.selected.id ? (
     <div className={Style.wrap}>
       <VideoPlay id={globalState.selected.id} />
