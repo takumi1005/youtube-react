@@ -1,24 +1,27 @@
-import React, { useEffect, useContext } from 'react'
-import Layout from '../components/Layout/Layout'
-import { fetchPopularData } from '../apis/index'
-import { Store } from '../store/index'
-import VideoGrid from '../components/VideoGrid/VideoGrid'
-import VideoGridItem from '../components/VideoGridItem/VideoGridItem'
+import React, { useEffect, useContext } from 'react';
+import Layout from '../components/Layout/Layout';
+import { fetchPopularData } from '../apis/index';
+import { Store } from '../store/index';
+import VideoGrid from '../components/VideoGrid/VideoGrid';
+import VideoGridItem from '../components/VideoGridItem/VideoGridItem';
 
 const Top = () => {
-  const { globalState, setGlobalState } = useContext(Store)
+  const { globalState, setGlobalState } = useContext(Store);
   useEffect(() => {
     fetchPopularData().then((res) => {
-      console.log('data', res)
-      setGlobalState({type: 'SET_POPULAR', payload: {popular: res.data.items}})
-    })
+      console.log('data', res);
+      setGlobalState({
+        type: 'SET_POPULAR',
+        payload: { popular: res.data.items },
+      });
+    });
     // eslint-disable-next-line
-  },[])
+  }, []);
   return (
     <Layout>
       <VideoGrid>
-        {
-          globalState.popular && globalState.popular.map((popular) => {
+        {globalState.popular &&
+          globalState.popular.map((popular) => {
             return (
               <VideoGridItem
                 id={popular.id}
@@ -26,13 +29,13 @@ const Top = () => {
                 // src={popular.snippet.thumbnails.standard.url}
                 // starndard.urlが含まれていない動画があるため下記に変更
                 src={popular.snippet.thumbnails.default.url}
-                title={popular.snippet.title} />
-            )
-          })
-        }
+                title={popular.snippet.title}
+              />
+            );
+          })}
       </VideoGrid>
     </Layout>
-  )
-}
+  );
+};
 
-export default Top
+export default Top;
