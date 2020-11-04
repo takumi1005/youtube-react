@@ -1,24 +1,14 @@
-import React, { useEffect, useContext } from 'react'
-import { Store } from '../../store/index'
-import { fetchRelatedData } from '../../apis/index'
-import Style from './SideList.module.scss'
-import SideListItem from '../SideListItem/SideListItem'
+import React, { useContext } from 'react';
+import { Store } from '../../store/index';
+import Style from './SideList.module.scss';
+import SideListItem from '../SideListItem/SideListItem';
 
 const Sidelist = () => {
-  const { globalState, setGlobalState } = useContext(Store)
-  const setRelatedVideo = async (id) => {
-    await fetchRelatedData(id).then((res) => {
-      setGlobalState({ type: 'SET_RELATED', payload: { related: res.data.items }})
-    })
-  }
-  useEffect(() => {
-    setRelatedVideo(globalState.selected.id)
-    // eslint-disable-next-line
-  }, [globalState.selected])
+  const { globalState } = useContext(Store);
   return (
     <div className={Style.sidenav}>
-      {
-        globalState.related ? globalState.related.map((video) => {
+      {globalState.related ? (
+        globalState.related.map((video) => {
           return (
             <SideListItem
               id={video.id.videoId}
@@ -26,11 +16,13 @@ const Sidelist = () => {
               src={video.snippet.thumbnails.medium.url}
               title={video.snippet.title}
             />
-          )
-        }) : <span>no data</span>
-      }
+          );
+        })
+      ) : (
+        <span>no data</span>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Sidelist
+export default Sidelist;
