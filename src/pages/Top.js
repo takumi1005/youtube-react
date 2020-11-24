@@ -28,7 +28,7 @@ const Top = () => {
                 key={popular.id}
                 // src={popular.snippet.thumbnails.standard.url}
                 // starndard.urlが含まれていない動画があるため下記に変更
-                src={popular.snippet.thumbnails.default.url}
+                src={popular.snippet.thumbnails.medium.url}
                 title={popular.snippet.title}
               />
             );
